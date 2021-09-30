@@ -1,6 +1,9 @@
 <?php
 
-class BlogController {
+namespace Room4\Controllers;
+use \Ninja\DatabaseTable;
+
+class Blog {
     private $authorsTable;
     private $blogsTable;
 
@@ -118,46 +121,42 @@ public function __construct(DatabaseTable $blogsTable, DatabaseTable $authorsTab
     public function delete() {
         $this->blogsTable->delete($_POST['id']);
 
-
-    header('location: /blog/list');
+        header('location: /blog/list');
     }
 
-    public function edit() {
-		if (isset($_POST['blog'])) {
+    public function saveEdit() {
+        $blog = $_POST['blog'];
+        $blog['blogdate'] = new \DateTime();
+        $blog['authorId'] = 1;
 
-		
-            $blog = $_POST['blog'];
-            $blog['blogdate'] = new DateTime();
-            $blog['authorId'] = 1;
-    
-            $this->blogsTable->save($blog);
-    
-            header('location: /blog/list');  
+        $this->blogsTable->save($blog);
+
+        header('location: /blog/list');  
     
         }
-        else {
     
-            if (isset($_GET['id'])) {
-                $blog = $this->blogsTable->findById($_GET['id']);
-            }
-            $title = 'Room4 Studios Hire';
-            $keywords = 'external hire, rehearsal studio, recording, mixing, EP, album, dry-hire, editing, mixing, Pro Tools, Logic, drum recording, guitar recording';
-            $description = 'We have a brilliant recording studio that has been acoustically designed and equipped to provide great value for money. 3 live rooms and loads of great gear.';
-            $heading = 'Enter/Edit a Blog';
-            $subHeading = '';
-
-            return ['template' => 'editblog.html.php',
-                'title' => $title, 
-                'keywords' => $keywords, 
-                'description' => $description, 
-                'heading' => $heading, 
-                'subHeading' => $subHeading,
-                'variables' => [
-                    'blog' => $blog ?? null
-                ]
-            ];
+    public function edit(){
+        if (isset($_GET['id'])) {
+            $blog = $this->blogsTable->findById($_GET['id']);
         }
+        
+        $title = 'Room4 Studios Hire';
+        $keywords = 'external hire, rehearsal studio, recording, mixing, EP, album, dry-hire, editing, mixing, Pro Tools, Logic, drum recording, guitar recording';
+        $description = 'We have a brilliant recording studio that has been acoustically designed and equipped to provide great value for money. 3 live rooms and loads of great gear.';
+        $heading = 'Enter/Edit a Blog';
+        $subHeading = '';
+
+        return ['template' => 'editblog.html.php',
+            'title' => $title, 
+            'keywords' => $keywords, 
+            'description' => $description, 
+            'heading' => $heading, 
+            'subHeading' => $subHeading,
+            'variables' => [
+                'blog' => $blog ?? null
+            ]
+        ];
     }
-
 }
+
 
