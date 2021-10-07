@@ -1,10 +1,4 @@
-<?php
-$title = 'Room4 Studios Hire';
-$keywords = 'external hire, rehearsal studio, recording, mixing, EP, album, dry-hire, editing, mixing, Pro Tools, Logic, drum recording, guitar recording';
-$description = 'We have a brilliant recording studio that has been acoustically designed and equipped to provide great value for money. 3 live rooms and loads of great gear.';
-$heading = 'Room4 Blog';
-$subHeading = '';
-?>
+
 
 <div class="m-3">
   <p><?=$totalBlogs?> posts have been made on the Room4 Blog</p>  
@@ -40,11 +34,26 @@ $subHeading = '';
     <input type="hidden" name="id" value="<?=$blog['id']?>">
     <input type="submit" value="Delete">
   </form>
+
+  <!-- coloured buttons -->
+  <div class="d-flex justify-content-start">
+  <a class="btn btn-warning" href="/blog/edit?id=<?=$blog['id']?>" role="button">Edit</a>
+  <form action="" method="post">
+  <button type="button" class="btn btn-danger" value="<?=$blog['id']?>">Delete</button>
+</form>
+</div>
     </p>
   </blockquote>
   <?php endforeach; ?>
 <div class="d-flex justify-content-center">
   <a class="btn btn-warning" href="/blog/edit" role="button">Make a Post</a>
   </div>
+  <ul><?php if ($loggedIn): ?>
+                            <li ><a  href="/logout">Log out</a></li>
+                            <?php else: ?>
+                            <li ><a  href="/login">Log in</a></li>
+                            <?php endif; ?>
+                            </ul>
+
 
 </div>

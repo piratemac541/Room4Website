@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="southpaw-sites.co.uk">
     <meta name="keywords" content="<?=$keywords?>">
-    <meta name="description" content="<?=$description?>">
+    <meta name="description" content="<?=$description ?? ''?>">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -54,7 +54,7 @@
                       } else {
                       
                       echo '<li class="nav-item">
-                      <a class="nav-link" href="blog/rehearsal"><img class="nav_icon" src="/images/rehearsal.gif" width="40" alt="Rehearsal">Rehearsal</a></li>';
+                      <a class="nav-link" href="/blog/rehearsal"><img class="nav_icon" src="/images/rehearsal.gif" width="40" alt="Rehearsal">Rehearsal</a></li>';
                       }
                       
                       if($currentpage=="/recording.php") 
@@ -117,7 +117,11 @@
                       }
                       ?>
 
-
+<?php if ($loggedIn): ?>
+                            <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
+                            <?php else: ?>
+                            <li class="nav-item"><a class="nav-link" href="/login">Log in</a></li>
+                            <?php endif; ?>
                     
                     
                     
@@ -125,7 +129,7 @@
                   </ul>
               
                 
-              <a href="/booknow.php"><img id="book_now" src="images/book_now.gif" width="120" height="120" alt="Book Now"></a>
+              <a href="/booknow.php"><img id="book_now" src="/images/book_now.gif" width="120" height="120" alt="Book Now"></a>
               
                 </div>
 
@@ -133,11 +137,16 @@
     
     </div>
     </header>
-
+    <?php if ($loggedIn): ?>
+                            <li ><a  href="/logout">Log out</a></li>
+                            <?php else: ?>
+                            <li ><a  href="/login">Log in</a></li>
+                            <?php endif; ?>
+    
     <!-- jumbotron header -->
 <div class="bg-light p-2 rounded-lg border m-3 text-center rounded-3">
   <h1 class="display-5"><?=$heading?></h1>
-  <p class="lead text-muted"><?=$subHeading?></p>
+  <p class="lead text-muted"><?=$subHeading ?? ''?></p>
   
 </div>
 
